@@ -95,7 +95,7 @@
       <h1>Welcome to the Home Page</h1>
     {/if}
     {#if currentPage === 'About'}
-      <h1>About Us</h1>
+      <h1>sobre</h1>
       <p>This is the about page content.</p>
     {/if}
     {#if currentPage === 'Contact'}
