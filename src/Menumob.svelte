@@ -2,9 +2,11 @@
     import { createEventDispatcher } from 'svelte';
     // Define your menu items here
     let menuItems = [
-      { text: 'Home', icon: 'home', page: 'Home' },
-      { text: 'About', icon: 'info', page: 'About' },
-      { text: 'Contact', icon: 'mail', page: 'Contact' },
+      { icon: 'icon/rlocalon.svg', page: 'Home' },
+      { icon: 'icon/reciclagem.svg', page: 'About' },
+      { icon: 'icon/cardon.svg', page: 'Contact' },
+      { icon: 'icon/rankingon.svg', page: 'Contact' },
+      { icon: 'icon/accon.svg', page: 'Contact' },
     ];
     const dispatch = createEventDispatcher();
 
@@ -40,14 +42,8 @@
   
   <div class="menu">
     {#each menuItems as item}
-    <a
-      class="menu-item"
-      href=""
-      on:click={handleClick}
-      data-page={item.page}
-    >
-    <span class="icon">{item.icon}</span>
-    <span>{item.text}</span>
+    <a class="menu-item" href="" on:click={handleClick} data-page={item.page}>
+        <img src={item.icon} alt={item.link} />
     </a>
     {/each}
   </div>
