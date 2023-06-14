@@ -2,17 +2,21 @@
     import { createEventDispatcher } from 'svelte';
     // Define your menu items here
     let menuItems = [
-      { icon: 'icon/rlocalon.svg', page: 'Home' },
-      { icon: 'icon/reciclagem.svg', page: 'About' },
-      { icon: 'icon/cardon.svg', page: 'Contact' },
-      { icon: 'icon/rankingon.svg', page: 'Contact' },
-      { icon: 'icon/accon.svg', page: 'Contact' },
+      { text: 'Local', icon: 'icon/rlocalon.svg', page: 'Local' },
+      { text: 'Reciclagem', icon: 'icon/reciclagem.svg', page: 'Recicle' },
+      { text: 'Cartoes', icon: 'icon/cardon.svg', page: 'Cards' },
+      { text: 'Ranking', icon: 'icon/rankingon.svg', page: 'Ranking' },
+      { text: 'Utilizador', icon: 'icon/accon.svg', page: 'User' },
     ];
+
+    let selectedItem = null;
     const dispatch = createEventDispatcher();
 
-    function selectItem(page) {
+    function selectItem(page, event) {
+    selectedItem = page;
     dispatch('itemSelected', { page });
-    }
+    event.stopPropagation();
+  }
     
     function handleClick(event) {
     event.preventDefault();
@@ -25,14 +29,22 @@
   <style>
     .menu {
       display: flex;
-      background-color: #f0f0f0;
       padding: 10px;
+      background-color: #1f6807;
     }
   
     .menu-item {
       display: flex;
       align-items: center;
       margin-right: 8px;
+      background-color: #1f6807; /* Set the background color to green */
+      padding: 8px; /* Optional: Adjust the padding as needed */
+      border-radius: 4px; /* Optional: Add border radius for a rounded look */
+      transition: transform 0.3s ease; /* Add transition for smooth animation */
+    }
+
+    .menu-item.selected {
+    transform: translateY(-15px); /* Slide up the image by 8px when selected */
     }
   
     .icon {
@@ -42,9 +54,8 @@
   
   <div class="menu">
     {#each menuItems as item}
-    <a class="menu-item" href="" on:click={handleClick} data-page={item.page}>
+    <a class="menu-item {selectedItem === item.page ? 'selected' : ''}" href="" on:click|preventDefault|stopPropagation={selectItem.bind(null, item.page)}>
         <img src={item.icon} alt={item.link} />
-    </a>
+      </a>
     {/each}
   </div>
-  
